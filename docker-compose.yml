@@ -1,0 +1,24 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres_container
+    environment:
+      POSTGRES_USER: asisya
+      POSTGRES_PASSWORD: asisya_dev
+      POSTGRES_DB: asisya
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  rabbitmq:
+    image: rabbitmq:latest
+    environment:
+      RABBITMQ_DEFAULT_USER: asisya
+      RABBITMQ_DEFAULT_PASS: asisya_dev
+    container_name: rabbitmq_container
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+volumes:
+  pgdata:
+    
