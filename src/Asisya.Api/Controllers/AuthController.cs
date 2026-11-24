@@ -1,5 +1,6 @@
 ﻿using Asisya.Application.Auth.Dto;
 using Asisya.Application.Auth.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Asisya.Api.Controllers
@@ -23,5 +24,7 @@ namespace Asisya.Api.Controllers
                   ? Unauthorized(new { message = "Credenciales inválidas" })
                   : Ok(result);
         }
+
+
     }
 }

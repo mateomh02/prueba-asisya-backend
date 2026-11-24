@@ -1,5 +1,6 @@
 ﻿using Asisya.Application;
 using Asisya.Application.Auth.Interfaces;
+using Asisya.Application.Routes.Interfaces;
 using Asisya.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -20,6 +21,7 @@ public static class DependencyInjection
         services.Configure<JwtSettings>(configuration.GetSection("Jwt"));
         services.AddScoped<ITokenService, JwtTokenService>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IRouteRepository, RouteRepository>();
 
         return services;
     }
