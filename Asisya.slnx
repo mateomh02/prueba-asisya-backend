@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/src/">
+    <File Path="docker-compose.yml" />
     <Project Path="src/Asisya.Api/Asisya.Api.csproj" />
     <Project Path="src/Asisya.Application/Asisya.Application.csproj" />
     <Project Path="src/Asisya.Domain/Asisya.Domain.csproj" />
