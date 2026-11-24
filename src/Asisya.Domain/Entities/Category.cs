@@ -1,4 +1,6 @@
-﻿namespace Asisya.Domain
+﻿using Asisya.Domain.Common;
+
+namespace Asisya.Domain.Entities
 {
     public class Category : IEntity
     {

@@ -1,4 +1,7 @@
 ﻿
+using Asisya.Domain.Common;
+using Asisya.Domain.Entities;
+
 namespace Asisya.Domain
 {
     public class Product : IEntity

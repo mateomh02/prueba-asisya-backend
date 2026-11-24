@@ -1,4 +1,6 @@
 ﻿
+using Asisya.Domain.Common;
+
 namespace Asisya.Domain
 {
     public class Supplier : IEntity

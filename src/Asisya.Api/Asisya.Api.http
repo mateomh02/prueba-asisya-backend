@@ -1,11 +1,10 @@
 @Asisya.Api_HostAddress = http://localhost:5065
 
-GET {{Asisya.Api_HostAddress}}/openapi/v1.json
+POST {{Asisya.Api_HostAddress}}/api/auth/login
 Accept: application/json
+Content-Type: application/json
 
-###
-
-GET {{Asisya.Api_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
+{
+  "email": "admin@finanzauto.com.co",
+  "password": "admin123"
+}

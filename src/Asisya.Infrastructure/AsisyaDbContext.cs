@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Asisya.Domain;
+using Asisya.Domain.Common;
 
 namespace Asisya.Infrastructure
 {

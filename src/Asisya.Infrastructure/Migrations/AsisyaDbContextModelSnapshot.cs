@@ -15,7 +15,7 @@ partial class AsisyaDbContextModelSnapshot : ModelSnapshot
     // If you encounter a merge conflict in the line below, it means you need to
     // discard one of the migration branches and recreate its migrations on top of
     // the other branch. See https://aka.ms/efcore-docs-migrations-conflicts for more info.
-    public override string LastMigrationId => "20261124034117_AddProductsAndSuppliers";
+    public override string LastMigrationId => "20261124040953_AddUserAndRolRoutes";
 
     protected override void BuildModel(ModelBuilder modelBuilder)
     {
@@ -26,7 +26,7 @@ partial class AsisyaDbContextModelSnapshot : ModelSnapshot
 
         NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-        modelBuilder.Entity("Asisya.Domain.Category", b =>
+        modelBuilder.Entity("Asisya.Domain.Entities.Category", b =>
             {
                 var id = b.Property<int>("Id")
                     .ValueGeneratedOnAdd()
@@ -44,6 +44,97 @@ partial class AsisyaDbContextModelSnapshot : ModelSnapshot
                 b.HasKey("Id");
 
                 b.ToTable("Category");
+            });
+
+        modelBuilder.Entity("Asisya.Domain.Identity.AppRoute", b =>
+            {
+                var id = b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("integer");
+
+                NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(id);
+
+                b.Property<string>("Component")
+                    .IsRequired()
+                    .HasColumnType("text");
+
+                b.Property<string>("Name")
+                    .IsRequired()
+                    .HasColumnType("text");
+
+                b.Property<string>("Path")
+                    .IsRequired()
+                    .HasColumnType("text");
+
+                b.HasKey("Id");
+
+                b.ToTable("AppRoute");
+            });
+
+        modelBuilder.Entity("Asisya.Domain.Identity.Role", b =>
+            {
+                var id = b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("integer");
+
+                NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(id);
+
+                b.Property<string>("RoleName")
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .HasColumnType("character varying(50)");
+
+                b.HasKey("Id");
+
+                b.HasIndex("RoleName")
+                    .IsUnique();
+
+                b.ToTable("Role");
+            });
+
+        modelBuilder.Entity("Asisya.Domain.Identity.RoleRoute", b =>
+            {
+                b.Property<int>("RoleId")
+                    .HasColumnType("integer");
+
+                b.Property<int>("AppRouteId")
+                    .HasColumnType("integer");
+
+                b.HasKey("RoleId", "AppRouteId");
+
+                b.HasIndex("AppRouteId");
+
+                b.ToTable("RoleRoute");
+            });
+
+        modelBuilder.Entity("Asisya.Domain.Identity.User", b =>
+            {
+                var id = b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("integer");
+
+                NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(id);
+
+                b.Property<string>("Email")
+                    .IsRequired()
+                    .HasMaxLength(200)
+                    .HasColumnType("character varying(200)");
+
+                b.Property<string>("PasswordHash")
+                    .IsRequired()
+                    .HasColumnType("text");
+
+                b.Property<int>("RoleId")
+                    .HasColumnType("integer");
+
+                b.HasKey("Id");
+
+                b.HasIndex("Email")
+                    .IsUnique();
+
+                b.HasIndex("RoleId");
+
+                b.ToTable("User");
             });
 
         modelBuilder.Entity("Asisya.Domain.Product", b =>
@@ -140,9 +231,39 @@ partial class AsisyaDbContextModelSnapshot : ModelSnapshot
                 b.ToTable("Supplier");
             });
 
+        modelBuilder.Entity("Asisya.Domain.Identity.RoleRoute", b =>
+            {
+                b.HasOne("Asisya.Domain.Identity.AppRoute", "AppRoute")
+                    .WithMany("RoleRoutes")
+                    .HasForeignKey("AppRouteId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+
+                b.HasOne("Asisya.Domain.Identity.Role", "Role")
+                    .WithMany("RoleRoutes")
+                    .HasForeignKey("RoleId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+
+                b.Navigation("AppRoute");
+
+                b.Navigation("Role");
+            });
+
+        modelBuilder.Entity("Asisya.Domain.Identity.User", b =>
+            {
+                b.HasOne("Asisya.Domain.Identity.Role", "Role")
+                    .WithMany("Users")
+                    .HasForeignKey("RoleId")
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired();
+
+                b.Navigation("Role");
+            });
+
         modelBuilder.Entity("Asisya.Domain.Product", b =>
             {
-                b.HasOne("Asisya.Domain.Category", "Category")
+                b.HasOne("Asisya.Domain.Entities.Category", "Category")
                     .WithMany()
                     .HasForeignKey("CategoryId")
                     .OnDelete(DeleteBehavior.Restrict)
@@ -157,6 +278,18 @@ partial class AsisyaDbContextModelSnapshot : ModelSnapshot
                 b.Navigation("Category");
 
                 b.Navigation("Supplier");
+            });
+
+        modelBuilder.Entity("Asisya.Domain.Identity.AppRoute", b =>
+            {
+                b.Navigation("RoleRoutes");
+            });
+
+        modelBuilder.Entity("Asisya.Domain.Identity.Role", b =>
+            {
+                b.Navigation("RoleRoutes");
+
+                b.Navigation("Users");
             });
 
         modelBuilder.Entity("Asisya.Domain.Supplier", b =>

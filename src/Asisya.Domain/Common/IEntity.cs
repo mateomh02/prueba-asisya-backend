@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Asisya.Domain
+namespace Asisya.Domain.Common
 {
     public interface IEntity
     {
