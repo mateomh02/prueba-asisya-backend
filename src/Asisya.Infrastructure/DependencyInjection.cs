@@ -1,5 +1,7 @@
 ﻿using Asisya.Application;
 using Asisya.Application.Auth.Interfaces;
+using Asisya.Application.Categories.Interfaces;
+using Asisya.Application.Products.Interfaces;
 using Asisya.Application.Routes.Interfaces;
 using Asisya.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +24,8 @@ public static class DependencyInjection
         services.AddScoped<ITokenService, JwtTokenService>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IRouteRepository, RouteRepository>();
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddScoped<IProductRepository, ProductRepository>();
 
         return services;
     }

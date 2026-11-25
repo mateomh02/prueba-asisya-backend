@@ -1,6 +1,9 @@
 @Asisya.Api_HostAddress = http://localhost:5065
+@adminToken = PEGA_AQUI_EL_TOKEN_DEL_ADMIN
+@userToken = PEGA_AQUI_EL_TOKEN_DEL_USER
 
-POST {{Asisya.Api_HostAddress}}/api/auth/login
+### Login admin (copia el token de la respuesta)
+POST {{Asisya.Api_HostAddress}}/Auth/login
 Accept: application/json
 Content-Type: application/json
 
@@ -8,3 +11,69 @@ Content-Type: application/json
   "email": "admin@finanzauto.com.co",
   "password": "admin123"
 }
+
+### Login user (copia el token de la respuesta)
+POST {{Asisya.Api_HostAddress}}/Auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "user@finanzauto.com.co",
+  "password": "user123"
+}
+
+### Rutas del usuario autenticado
+GET {{Asisya.Api_HostAddress}}/routes
+Authorization: Bearer {{adminToken}}
+
+### Crear categoria SERVIDORES (admin) -> 201
+POST {{Asisya.Api_HostAddress}}/Category
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "name": "SERVIDORES",
+  "description": "Servidores fisicos y virtuales",
+  "picture": "https://example.com/servidores.png"
+}
+
+### Crear categoria CLOUD (admin) -> 201
+POST {{Asisya.Api_HostAddress}}/Category
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "name": "CLOUD",
+  "description": "Servicios en la nube",
+  "picture": "https://example.com/cloud.png"
+}
+
+### Categoria duplicada -> 409
+POST {{Asisya.Api_HostAddress}}/Category
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "name": "SERVIDORES"
+}
+
+### Crear con token de user -> 403
+POST {{Asisya.Api_HostAddress}}/Category
+Authorization: Bearer {{userToken}}
+Content-Type: application/json
+
+{
+  "name": "NO_DEBERIA_CREARSE"
+}
+
+### Crear sin token -> 401
+POST {{Asisya.Api_HostAddress}}/Category
+Content-Type: application/json
+
+{
+  "name": "SIN_TOKEN"
+}
+
+### Listar categorias -> 200
+GET {{Asisya.Api_HostAddress}}/Category
+Authorization: Bearer {{userToken}}

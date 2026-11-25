@@ -9,8 +9,12 @@ builder.Services.AddOpenApi();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddJwtAuthentication(builder.Configuration);
+builder.Services.AddGlobalExceptionHandling();
 
 var app = builder.Build();
+
+
+app.UseExceptionHandler();
 
 if (app.Environment.IsDevelopment())
 {

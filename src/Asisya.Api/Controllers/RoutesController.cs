@@ -7,7 +7,7 @@ namespace Asisya.Api.Controllers;
 
 [ApiController]
 [Authorize]
-[Route("api/routes")]
+[Route("routes")]
 public class RoutesController : ControllerBase
 {
     private readonly IRouteService _routes;

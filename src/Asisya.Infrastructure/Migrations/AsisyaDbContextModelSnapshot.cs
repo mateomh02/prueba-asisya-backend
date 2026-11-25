@@ -15,7 +15,7 @@ partial class AsisyaDbContextModelSnapshot : ModelSnapshot
     // If you encounter a merge conflict in the line below, it means you need to
     // discard one of the migration branches and recreate its migrations on top of
     // the other branch. See https://aka.ms/efcore-docs-migrations-conflicts for more info.
-    public override string LastMigrationId => "20261124040953_AddUserAndRolRoutes";
+    public override string LastMigrationId => "20261124070923_AddCategoryPictureAndUniqueName";
 
     protected override void BuildModel(ModelBuilder modelBuilder)
     {
@@ -35,13 +35,22 @@ partial class AsisyaDbContextModelSnapshot : ModelSnapshot
                 NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(id);
 
                 b.Property<string>("Description")
-                    .HasColumnType("text");
+                    .HasMaxLength(500)
+                    .HasColumnType("character varying(500)");
 
                 b.Property<string>("Name")
                     .IsRequired()
-                    .HasColumnType("text");
+                    .HasMaxLength(50)
+                    .HasColumnType("character varying(50)");
+
+                b.Property<string>("Picture")
+                    .HasMaxLength(500)
+                    .HasColumnType("character varying(500)");
 
                 b.HasKey("Id");
+
+                b.HasIndex("Name")
+                    .IsUnique();
 
                 b.ToTable("Category");
             });
