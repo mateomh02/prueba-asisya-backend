@@ -7,9 +7,9 @@ namespace Asisya.Infrastructure.Persistence.Configurations
 {
     public class ProductConfiguration : IEntityTypeConfiguration<Product>
     {
-        public void Configure(EntityTypeBuilder<Product> builder) 
+        public void Configure(EntityTypeBuilder<Product> builder)
         {
-            builder.Property(p=> p.ProductName)
+            builder.Property(p => p.ProductName)
                 .IsRequired()
                 .HasMaxLength(100);
             builder.Property(p => p.UnitPrice)
@@ -26,5 +26,5 @@ namespace Asisya.Infrastructure.Persistence.Configurations
             .HasForeignKey(p => p.SupplierId)
             .OnDelete(DeleteBehavior.Restrict);
         }
-    }   
+    }
 }

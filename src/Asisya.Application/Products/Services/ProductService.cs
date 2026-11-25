@@ -23,7 +23,7 @@ namespace Asisya.Application.Products.Services
             _productRepository = productRepository;
         }
 
-        public async Task<PagedResult<ProductResponse>> GetAllAsync(ProductQuery query, CancellationToken ct = default) 
+        public async Task<PagedResult<ProductResponse>> GetAllAsync(ProductQuery query, CancellationToken ct = default)
         {
 
             var page = Math.Max(query.page, 1);
@@ -50,7 +50,7 @@ namespace Asisya.Application.Products.Services
         public async Task<ProductDetailResponse> GetByIdAsync(int id, CancellationToken ct = default)
         {
             var product = await _productRepository.GetByIdAsync(id, ct);
-            if(product is null)
+            if (product is null)
                 throw new NotFoundException("Producto no encontrado");
 
             return ToDetailResponse(product);

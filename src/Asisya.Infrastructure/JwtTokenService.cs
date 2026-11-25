@@ -17,8 +17,10 @@ namespace Asisya.Infrastructure
             _settings = options.Value;
         }
 
-        public string GenerateToken(User user) {
-            if (user.Role is null) {
+        public string GenerateToken(User user)
+        {
+            if (user.Role is null)
+            {
                 throw new InvalidOperationException("El usuario debe cargarse con su rol.");
             }
 

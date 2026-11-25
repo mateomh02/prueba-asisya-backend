@@ -27,7 +27,7 @@ namespace Asisya.Application.Products.Services
             _inserter = inserter;
         }
 
-        public async Task<BulkCreateProductsResponse> GenerateRandomAsync(BulkCreateProductsRequest request, CancellationToken ct = default) 
+        public async Task<BulkCreateProductsResponse> GenerateRandomAsync(BulkCreateProductsRequest request, CancellationToken ct = default)
         {
             var categories = await _categories.GetByNamesAsync(CategoryNames, ct);
             var found = categories.Select(c => c.Name);

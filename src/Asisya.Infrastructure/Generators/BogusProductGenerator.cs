@@ -9,7 +9,7 @@ namespace Asisya.Infrastructure.Generators
 {
     public class BogusProductGenerator : IRandomProductGenerator
     {
-        public IEnumerable<Product> Generate(int count, IReadOnlyList<int> categoryIds) 
+        public IEnumerable<Product> Generate(int count, IReadOnlyList<int> categoryIds)
         {
             var ids = categoryIds.ToArray();
             var faker = new Faker<Product>()

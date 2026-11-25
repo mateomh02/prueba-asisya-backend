@@ -18,10 +18,10 @@ namespace Asisya.Infrastructure.Persistence.Repositories
 
         public async Task<Product?> GetByIdAsync(int id, CancellationToken ct = default)
         {
-           return await _context.Set<Product>()
-                .AsNoTracking()
-                .Include(i => i.Category)
-                .FirstOrDefaultAsync(f => f.Id == id, ct);
+            return await _context.Set<Product>()
+                 .AsNoTracking()
+                 .Include(i => i.Category)
+                 .FirstOrDefaultAsync(f => f.Id == id, ct);
         }
 
         public async Task<PagedResult<Product>> GetPageAsyn(ProductQuery filter, CancellationToken ct = default)

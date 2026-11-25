@@ -6,6 +6,7 @@ using Asisya.Application.Routes.Interfaces;
 using Asisya.Infrastructure.Generators;
 using Asisya.Infrastructure.Persistence.Bulk;
 using Asisya.Infrastructure.Persistence.Repositories;
+using Asisya.Infrastructure.Persistence.Seeding;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,6 +31,7 @@ public static class DependencyInjection
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IRandomProductGenerator, BogusProductGenerator>();
         services.AddScoped<IProductBulkInserter, NpgsqlProductBulkInserter>();
+        services.AddScoped<DbInitializer>();
 
         return services;
     }

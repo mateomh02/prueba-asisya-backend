@@ -12,10 +12,10 @@ namespace Asisya.Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             var entityTypes = typeof(IEntity).Assembly.GetTypes()
-                .Where(t => t.IsClass && !t.IsAbstract  && typeof(IEntity).IsAssignableFrom(t));
+                .Where(t => t.IsClass && !t.IsAbstract && typeof(IEntity).IsAssignableFrom(t));
 
             foreach (var type in entityTypes)
-            { 
+            {
                 modelBuilder.Entity(type);
             }
 

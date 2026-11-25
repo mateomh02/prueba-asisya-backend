@@ -19,5 +19,5 @@ namespace Asisya.Domain
         public string? HomePage { get; set; }
 
         public ICollection<Product> Products { get; set; } = new List<Product>();
-     }
+    }
 }

@@ -35,7 +35,7 @@ public class CategoryRepository : ICategoryRepository
             .AnyAsync(c => c.Name.ToLower() == normalized, ct);
     }
 
-    public Task<List<Category>> GetByNamesAsync(IEnumerable<string> names, CancellationToken ct = default) 
+    public Task<List<Category>> GetByNamesAsync(IEnumerable<string> names, CancellationToken ct = default)
     {
         var normalized = names.Select(n => n.ToLower()).ToList();
         return _context.Set<Category>()

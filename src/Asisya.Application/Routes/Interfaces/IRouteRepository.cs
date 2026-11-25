@@ -7,6 +7,6 @@ namespace Asisya.Application.Routes.Interfaces
 {
     public interface IRouteRepository
     {
-        Task<List<AppRoute>> ListRoutesAsync(string roleName,CancellationToken ct = default);
+        Task<List<AppRoute>> ListRoutesAsync(string roleName, CancellationToken ct = default);
     }
 }

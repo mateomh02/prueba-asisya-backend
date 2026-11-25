@@ -3,10 +3,12 @@ using Asisya.Application;
 
 namespace Asisya.Infrastructure;
 
-public class BcryptPasswordHasher : IPasswordHasher {
+public class BcryptPasswordHasher : IPasswordHasher
+{
     private const int WorkFactor = 12;
 
-    public string HashPassword(string password) {
+    public string HashPassword(string password)
+    {
         return BCrypt.Net.BCrypt.HashPassword(password, workFactor: WorkFactor);
     }
 
