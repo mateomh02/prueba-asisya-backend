@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 import { SWRConfig } from 'swr'
 import { api } from '@/modules/core'
-import { useAuthStore } from '@/modules/app/auth'
+import { useAuthStore, useSessionExpiry } from '@/modules/app/auth'
 import { getRoutes } from '@/modules/app/routes'
 import { AppHeader } from './app-header'
 
@@ -15,6 +15,8 @@ export const AppLayout = () => {
   const token = useAuthStore((s) => s.token)
   const routesCount = useAuthStore((s) => s.routes.length)
   const setRoutes = useAuthStore((s) => s.setRoutes)
+
+  useSessionExpiry()
 
   useEffect(() => {
     if (token && routesCount === 0) {
