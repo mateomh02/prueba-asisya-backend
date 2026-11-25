@@ -36,4 +36,4 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Build Docker image
-        run: docker build -t asisya-api:ci ./Backend
+        run: docker build -f Dockerfile -t asisya-api:ci .
