@@ -14,6 +14,9 @@ namespace Asisya.Infrastructure.Persistence.Configurations
                 .HasMaxLength(100);
             builder.Property(p => p.UnitPrice)
             .HasPrecision(18, 2);
+            builder.Property(p => p.Source)
+                .HasConversion<string>()
+                .HasMaxLength(20);
             builder.HasOne(p => p.Category)
                 .WithMany()
                 .HasForeignKey(p => p.CategoryId)

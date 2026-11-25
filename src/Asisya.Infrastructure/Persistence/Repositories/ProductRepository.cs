@@ -2,6 +2,7 @@
 using Asisya.Application.Products.Dto;
 using Asisya.Application.Products.Interfaces;
 using Asisya.Domain;
+using Asisya.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Asisya.Infrastructure.Persistence.Repositories
@@ -51,6 +52,37 @@ namespace Asisya.Infrastructure.Persistence.Repositories
 
             return new PagedResult<Product>(items, total, filter.page, filter.pageSize);
         }
-            
+
+        public Task<Product?> GetForUpdateAsync(int id, CancellationToken ct = default)
+        {
+            return _context.Set<Product>().FirstOrDefaultAsync(p => p.Id == id, ct);
+        }
+
+        public Task SaveChangesAsync(CancellationToken ct = default)
+        {
+            return _context.SaveChangesAsync(ct);
+        }
+
+        public async Task DeleteAsync(Product product, CancellationToken ct = default)
+        {
+            _context.Set<Product>().Remove(product);
+            await _context.SaveChangesAsync(ct);
+        }
+
+        public Task<bool> CategoryExistsAsync(int categoryId, CancellationToken ct = default)
+        {
+            return _context.Set<Category>().AnyAsync(c => c.Id == categoryId, ct);
+        }
+
+        public Task<bool> SupplierExistsAsync(int supplierId, CancellationToken ct = default)
+        {
+            return _context.Set<Supplier>().AnyAsync(s => s.Id == supplierId, ct);
+        }
+
+        public async Task AddAsync(Product product, CancellationToken ct = default)
+        {
+            _context.Set<Product>().Add(product);
+            await _context.SaveChangesAsync(ct);
+        }
     }
 }

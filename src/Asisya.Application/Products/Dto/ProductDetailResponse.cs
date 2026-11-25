@@ -10,6 +10,7 @@ namespace Asisya.Application.Products.Dto
        bool Discontinued,
        int CategoryId,
        string CategoryName,
-       string CategoryPicture
+       string CategoryPicture,
+       string Source
        );
 }

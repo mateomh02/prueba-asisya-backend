@@ -34,4 +34,13 @@ public class CategoryRepository : ICategoryRepository
         return _context.Set<Category>()
             .AnyAsync(c => c.Name.ToLower() == normalized, ct);
     }
+
+    public Task<List<Category>> GetByNamesAsync(IEnumerable<string> names, CancellationToken ct = default) 
+    {
+        var normalized = names.Select(n => n.ToLower()).ToList();
+        return _context.Set<Category>()
+            .AsNoTracking()
+            .Where(c => normalized.Contains(c.Name.ToLower()))
+            .ToListAsync(ct);
+    }
 }

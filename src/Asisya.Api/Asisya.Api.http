@@ -77,3 +77,162 @@ Content-Type: application/json
 ### Listar categorias -> 200
 GET {{Asisya.Api_HostAddress}}/Category
 Authorization: Bearer {{userToken}}
+
+### Listar productos -> 200
+GET {{Asisya.Api_HostAddress}}/Products?page=1&pageSize=10
+Authorization: Bearer {{userToken}}
+
+### Detalle de producto con foto de la categoria -> 200
+GET {{Asisya.Api_HostAddress}}/Products/1
+Authorization: Bearer {{userToken}}
+
+### Detalle inexistente -> 404
+GET {{Asisya.Api_HostAddress}}/Products/99999
+Authorization: Bearer {{userToken}}
+
+### Actualizar producto 1 (admin) -> 200 (cambia categoryId por uno existente)
+PUT {{Asisya.Api_HostAddress}}/Products/1
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "productName": "Servidor Dell ACTUALIZADO",
+  "categoryId": 1,
+  "supplierId": null,
+  "quantityPerUnit": "1 unidad",
+  "unitPrice": 1500.50,
+  "unitsInStock": 8,
+  "unitsOnOrder": 2,
+  "reorderLevel": 5,
+  "discontinued": false
+}
+
+### Actualizar con precio negativo (admin) -> 400
+PUT {{Asisya.Api_HostAddress}}/Products/1
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "productName": "Precio invalido",
+  "categoryId": 1,
+  "unitPrice": -5,
+  "unitsInStock": 1,
+  "unitsOnOrder": 0,
+  "reorderLevel": 0,
+  "discontinued": false
+}
+
+### Actualizar con categoria inexistente (admin) -> 404
+PUT {{Asisya.Api_HostAddress}}/Products/1
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "productName": "Categoria invalida",
+  "categoryId": 99999,
+  "unitPrice": 10,
+  "unitsInStock": 1,
+  "unitsOnOrder": 0,
+  "reorderLevel": 0,
+  "discontinued": false
+}
+
+### Actualizar producto inexistente (admin) -> 404
+PUT {{Asisya.Api_HostAddress}}/Products/99999
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "productName": "No existe",
+  "categoryId": 1,
+  "unitPrice": 10,
+  "unitsInStock": 1,
+  "unitsOnOrder": 0,
+  "reorderLevel": 0,
+  "discontinued": false
+}
+
+### Actualizar con token de user -> 403
+PUT {{Asisya.Api_HostAddress}}/Products/1
+Authorization: Bearer {{userToken}}
+Content-Type: application/json
+
+{
+  "productName": "No permitido",
+  "categoryId": 1,
+  "unitPrice": 10,
+  "unitsInStock": 1,
+  "unitsOnOrder": 0,
+  "reorderLevel": 0,
+  "discontinued": false
+}
+
+### Borrar producto (admin) -> 204 (usa un id que quieras eliminar)
+DELETE {{Asisya.Api_HostAddress}}/Products/50
+Authorization: Bearer {{adminToken}}
+
+### Borrar con token de user -> 403
+DELETE {{Asisya.Api_HostAddress}}/Products/49
+Authorization: Bearer {{userToken}}
+
+### Crear producto (admin) -> 201 (cambia categoryId por uno existente)
+POST {{Asisya.Api_HostAddress}}/Product
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "productName": "Servidor creado desde el formulario",
+  "categoryId": 1,
+  "supplierId": null,
+  "quantityPerUnit": "1 unidad",
+  "unitPrice": 2500,
+  "unitsInStock": 5,
+  "unitsOnOrder": 0,
+  "reorderLevel": 2,
+  "discontinued": false
+}
+
+### Crear con categoria inexistente (admin) -> 404
+POST {{Asisya.Api_HostAddress}}/Product
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "productName": "Categoria invalida",
+  "categoryId": 99999,
+  "unitPrice": 10,
+  "unitsInStock": 1,
+  "unitsOnOrder": 0,
+  "reorderLevel": 0,
+  "discontinued": false
+}
+
+### Crear con precio negativo (admin) -> 400
+POST {{Asisya.Api_HostAddress}}/Product
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "productName": "Precio invalido",
+  "categoryId": 1,
+  "unitPrice": -1,
+  "unitsInStock": 1,
+  "unitsOnOrder": 0,
+  "reorderLevel": 0,
+  "discontinued": false
+}
+
+### Crear con token de user -> 403
+POST {{Asisya.Api_HostAddress}}/Product
+Authorization: Bearer {{userToken}}
+Content-Type: application/json
+
+{
+  "productName": "No permitido",
+  "categoryId": 1,
+  "unitPrice": 10,
+  "unitsInStock": 1,
+  "unitsOnOrder": 0,
+  "reorderLevel": 0,
+  "discontinued": false
+}

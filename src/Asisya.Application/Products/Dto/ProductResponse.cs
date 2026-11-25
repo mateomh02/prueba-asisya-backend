@@ -7,6 +7,7 @@
         int UnitsInStock,
         bool Discontinued,
         int CategoryId,
-        string CategoryName
+        string CategoryName,
+        string Source
         );
 }

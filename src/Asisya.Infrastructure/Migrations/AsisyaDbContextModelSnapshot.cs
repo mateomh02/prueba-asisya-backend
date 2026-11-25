@@ -15,7 +15,7 @@ partial class AsisyaDbContextModelSnapshot : ModelSnapshot
     // If you encounter a merge conflict in the line below, it means you need to
     // discard one of the migration branches and recreate its migrations on top of
     // the other branch. See https://aka.ms/efcore-docs-migrations-conflicts for more info.
-    public override string LastMigrationId => "20261124070923_AddCategoryPictureAndUniqueName";
+    public override string LastMigrationId => "20261125155516_AddProductSource";
 
     protected override void BuildModel(ModelBuilder modelBuilder)
     {
@@ -171,7 +171,12 @@ partial class AsisyaDbContextModelSnapshot : ModelSnapshot
                 b.Property<short>("ReorderLevel")
                     .HasColumnType("smallint");
 
-                b.Property<int>("SupplierId")
+                b.Property<string>("Source")
+                    .IsRequired()
+                    .HasMaxLength(20)
+                    .HasColumnType("character varying(20)");
+
+                b.Property<int?>("SupplierId")
                     .HasColumnType("integer");
 
                 b.Property<decimal>("UnitPrice")
@@ -281,8 +286,7 @@ partial class AsisyaDbContextModelSnapshot : ModelSnapshot
                 b.HasOne("Asisya.Domain.Supplier", "Supplier")
                     .WithMany("Products")
                     .HasForeignKey("SupplierId")
-                    .OnDelete(DeleteBehavior.Restrict)
-                    .IsRequired();
+                    .OnDelete(DeleteBehavior.Restrict);
 
                 b.Navigation("Category");
 

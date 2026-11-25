@@ -3,6 +3,8 @@ using Asisya.Application.Auth.Interfaces;
 using Asisya.Application.Categories.Interfaces;
 using Asisya.Application.Products.Interfaces;
 using Asisya.Application.Routes.Interfaces;
+using Asisya.Infrastructure.Generators;
+using Asisya.Infrastructure.Persistence.Bulk;
 using Asisya.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -26,6 +28,8 @@ public static class DependencyInjection
         services.AddScoped<IRouteRepository, RouteRepository>();
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IRandomProductGenerator, BogusProductGenerator>();
+        services.AddScoped<IProductBulkInserter, NpgsqlProductBulkInserter>();
 
         return services;
     }

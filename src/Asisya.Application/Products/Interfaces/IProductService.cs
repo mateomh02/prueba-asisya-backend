@@ -8,5 +8,8 @@ namespace Asisya.Application.Products.Interfaces
     {
         Task<PagedResult<ProductResponse>> GetAllAsync(ProductQuery query, CancellationToken ct = default);
         Task<ProductDetailResponse> GetByIdAsync(int id, CancellationToken ct = default);
+        Task<ProductDetailResponse> UpdateAsync(int id, UpsertProductRequest request, CancellationToken ct = default);
+        Task DeleteAsync(int id, CancellationToken ct = default);
+        Task<ProductDetailResponse> CreateAsync(UpsertProductRequest request, CancellationToken ct = default);
     }
 }
