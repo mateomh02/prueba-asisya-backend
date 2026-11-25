@@ -8,6 +8,7 @@
     <Project Path="src/Asisya.Worker/Asisya.Worker.csproj" />
   </Folder>
   <Folder Name="/tests/">
+    <Project Path="tests/Asisya.IntegrationTests/Asisya.IntegrationTests.csproj" />
     <Project Path="tests/Asisya.UnitTests/Asisya.UnitTests.csproj" />
   </Folder>
 </Solution>
