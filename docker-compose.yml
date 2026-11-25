@@ -35,15 +35,16 @@ services:
     ports:
       - "8080:8080"
 
-  rabbitmq:
-    image: rabbitmq:latest
-    environment:
-      RABBITMQ_DEFAULT_USER: asisya
-      RABBITMQ_DEFAULT_PASS: asisya_dev
-    container_name: rabbitmq_container
+  frontend:
+    build:
+      context: ./Frontend
+      args:
+        VITE_API_URL: ${VITE_API_URL:?Falta VITE_API_URL en el archivo .env}
+    container_name: asisya_frontend
+    depends_on:
+      - api
     ports:
-      - "5672:5672"
-      - "15672:15672"
+      - "5173:80"
 
 volumes:
   pgdata:

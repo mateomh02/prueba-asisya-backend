@@ -18,16 +18,16 @@ jobs:
           dotnet-version: '11.0.x'
 
       - name: Restore
-        run: dotnet restore Asisya.slnx
+        run: dotnet restore Backend/Asisya.slnx
 
       - name: Check code style
-        run: dotnet format Asisya.slnx --verify-no-changes --no-restore --exclude src/Asisya.Infrastructure/Migrations
+        run: dotnet format Backend/Asisya.slnx --verify-no-changes --no-restore --exclude Backend/src/Asisya.Infrastructure/Migrations
 
       - name: Build
-        run: dotnet build Asisya.slnx --no-restore -c Release
+        run: dotnet build Backend/Asisya.slnx --no-restore -c Release
 
       - name: Test
-        run: dotnet test Asisya.slnx --no-build -c Release
+        run: dotnet test Backend/Asisya.slnx --no-build -c Release
 
   docker-build:
     runs-on: ubuntu-latest
@@ -36,4 +36,4 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Build Docker image
-        run: docker build -t asisya-api:ci .
+        run: docker build -t asisya-api:ci ./Backend
